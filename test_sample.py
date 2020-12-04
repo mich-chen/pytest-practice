@@ -65,7 +65,12 @@ def test_valueError():
         valueError()
 
 
-# *************** Defining own explanation for failed assertions ***************
+# *************** Defining own explanation for failed assertions via hooks in conftest.py ***************
+
+def test_assertrepr_compare():
+    l = 1
+    r = 2
+    assert l == r
 
 
 # *************** Pytest Mocker Spy ***************
