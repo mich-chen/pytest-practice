@@ -35,6 +35,27 @@ def test_raise_fail():
     with pytest.raises(ZeroDivisionError):
         1/1 # fail
 
+def test_execinfo():
+    """excinfo == ExceptionInfo instance.
+
+    attributes include:
+        .type
+        .value
+        .traceback
+
+    can have access to actual exception. See example below."""
+
+    with pytest.raises(RuntimeError) as excinfo:
+
+        def func():
+            func()
+        func()
+
+    assert 'maximum recursion' in str(excinfo.value) # fail
+    assert 'min recursion' in str(excinfo.value) # pass
+
+
+
 
 # *************** Pytest Mocker Spy ***************
 
