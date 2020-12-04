@@ -9,8 +9,17 @@ def func(x):
 def test_answer():
     assert func(3) == 4
 
-# def test_fail():
-    # assert pytest.fail('testing pytest.fail', True)
+
+# *************** Pytest Failure Tests ***************
+
+def test_fail_true():
+    """Failure includes traceback."""
+    assert pytest.fail('testing pytest.fail', True)
+
+def test_fail_false():
+    """No traceback, only lists test name in failure summary."""
+    assert pytest.fail('testing pytest.fail', False)
+
 
 # *************** Pytest.raises: expected exceptions and errors ***************
 
@@ -26,6 +35,7 @@ def test_raise_fail():
     with pytest.raises(ZeroDivisionError):
         1/1 # fail
 
+
 # *************** Pytest Mocker Spy ***************
 
 # def test_shuffle_spy():
@@ -34,6 +44,7 @@ def test_raise_fail():
 
 #     spy.assert_called_once_with([1,2,3,4,5])
 #     spy.spy_return != [1,2,3,4,5]
+
 
 if __name__ == '__main__':
     
