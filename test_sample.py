@@ -52,7 +52,17 @@ def test_execinfo():
         func()
 
     assert 'maximum recursion' in str(excinfo.value) # fail
-    assert 'min recursion' in str(excinfo.value) # pass
+    # assert 'min recursion' in str(excinfo.value) # pass
+
+def valueError():
+    """Define ValueError exception with specific string representation"""
+    raise ValueError('Testing ValueError raised')
+
+def test_valueError():
+    """Test matching: test regex matches string representation of exception"""
+
+    with pytest.raises(ValueError, match=r".* ValueError .*"):
+        valueError()
 
 
 
