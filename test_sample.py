@@ -1,13 +1,16 @@
 import random
 import pytest
-# from pytest_mock import mocker
+from pytest_mock import mocker
 
 # *************** Pytest Assertions ***************
+
 def func(x):
     return x + 1
 
 def test_answer():
     assert func(3) == 4
+
+
 
 
 # *************** Pytest Failure Tests ***************
@@ -75,12 +78,13 @@ def test_assertrepr_compare():
 
 # *************** Pytest Mocker Spy ***************
 
-# def test_shuffle_spy():
-#     spy = mocker.spy(random, 'shuffle')
-#     assert random.shuffle([1,2,3,4,5]) != [1,2,3,4,5], 'list not shuffled'
+def test_shuffle_patch(mocker):
+    mocker.patch('random.shuffle', side_effect=lambda x: x.reverse())
+    lst = [1,2,3,4,5]
+    random.shuffle(lst)
 
-#     spy.assert_called_once_with([1,2,3,4,5])
-#     spy.spy_return != [1,2,3,4,5]
+    random.shuffle.assert_called_once_with(lst)
+    assert lst == [5,4,3,2,1], 'shuffle did not shuffle in place'
 
 
 if __name__ == '__main__':
