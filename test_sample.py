@@ -1,6 +1,7 @@
 import random
 import pytest
 from pytest_mock import mocker
+from mock import patch
 
 # *************** Pytest Assertions ***************
 
@@ -85,6 +86,22 @@ def test_shuffle_patch(mocker):
 
     random.shuffle.assert_called_once_with(lst)
     assert lst == [5,4,3,2,1], 'shuffle did not shuffle in place'
+
+def test_mocking(mocker):
+    mocker.patch('random.randint')
+    num = random.randint()
+
+    random.randint.assert_called_once_with()
+    assert num.instance(int), 'not integer'
+
+# using mock and patch with pytest
+@patch.object(random, 'randint')
+def test_patch_with_pytest(mock):
+    # patch object passed as mock arg
+    n = random.randint()
+    assert mock.called == True, 'patch mock not called'
+    assert n.instance(int), 'n not interger'
+
 
 
 if __name__ == '__main__':
